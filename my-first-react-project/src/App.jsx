@@ -1,125 +1,195 @@
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Line, Bar } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement, BarElement, CategoryScale, LinearScale } from "chart.js";
-ChartJS.register(LineElement, BarElement, CategoryScale, LinearScale);
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-const App = () => {
+
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+
+function App() {
     return (
-        <div className="min-h-screen bg-gray-50">
-            <header className="bg-blue-600 p-6 text-white text-center">
-                <h1 className="text-2xl font-bold">Water Management System for Delhi</h1>
-                <p className="mt-2">Real-time Water Leakage Detection and Prevention</p>
-                <Button className="mt-4 bg-white text-blue-600">Learn More</Button>
-            </header>
+        <Router>
+            <div className="min-h-screen bg-blue-200 text-gray-900 flex flex-col justify-between">
+                <Navbar />
+                <div className="flex-grow">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+                </div>
+                <Footer />
+            </div>
+        </Router>
+    );
+}
 
-            <main className="p-6">
-                {/* Home Section */}
-                <section id="home" className="mb-12">
-                    <Card>
-                        <CardContent>
-                            <h2 className="text-xl font-bold mb-4">About the Project</h2>
-                            <p className="text-gray-700">
-                                Our innovative system leverages IoT sensors, AI/ML models, and cloud technologies to detect water leakage in real-time and notify users for quick resolution. This initiative aims to conserve water and reduce wastage in Delhi.
-                            </p>
-                        </CardContent>
-                    </Card>
-                </section>
+function Navbar() {
+    return (
+        <nav className="bg-black p-4 shadow-lg flex justify-between">
+            <h1 className="text-white text-xl font-bold">LeakLoom</h1>
+            <div>
+                <Link to="/" className="text-white px-4 hover:text-red-500">Home</Link>
+                <Link to="/dashboard" className="text-white px-4 hover:text-red-500">Dashboard</Link>
+                <Link to="/about" className="text-white px-4 hover:text-red-500">About</Link>
+            </div>
+        </nav>
+    );
+}
 
-                {/* Dashboard Section */}
-                <section id="dashboard" className="mb-12">
-                    <h2 className="text-xl font-bold mb-4">Dashboard</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                            <CardContent>
-                                <h3 className="text-lg font-semibold mb-2">Flow Rates (Real-Time)</h3>
-                                <Line
-                                    data={{
-                                        labels: ["1 PM", "2 PM", "3 PM", "4 PM", "5 PM"],
-                                        datasets: [
-                                            {
-                                                label: "Flow Rate (L/min)",
-                                                data: [12, 18, 8, 15, 10],
-                                                borderColor: "#2563eb",
-                                                borderWidth: 2,
-                                                fill: false,
-                                            },
-                                        ],
-                                    }}
-                                    options={{ responsive: true, maintainAspectRatio: false }}
-                                />
-                            </CardContent>
-                        </Card>
+function Footer() {
+    return (
+        <footer className="bg-black p-4 text-center text-white mt-10">
+            <p>&copy; 2025 LeakLoom. All rights reserved.</p>
+            <div className="flex justify-center space-x-4 mt-2">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-500">
+                    <FaFacebook size={24} />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400">
+                    <FaTwitter size={24} />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-500">
+                    <FaInstagram size={24} />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-700">
+                    <FaLinkedin size={24} />
+                </a>
+            </div>
+        </footer>
+    );
+}
 
-                        <Card>
-                            <CardContent>
-                                <h3 className="text-lg font-semibold mb-2">Usage Trends</h3>
-                                <Bar
-                                    data={{
-                                        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                                        datasets: [
-                                            {
-                                                label: "Water Usage (Liters)",
-                                                data: [120, 150, 100, 130, 170],
-                                                backgroundColor: "#60a5fa",
-                                            },
-                                        ],
-                                    }}
-                                    options={{ responsive: true, maintainAspectRatio: false }}
-                                />
-                            </CardContent>
-                        </Card>
-                    </div>
-                </section>
+function Home() {
+    return (
+        <div className="p-10 text-center">
+            <h2 className="text-3xl font-bold">Welcome to LeakLoom</h2>
+            <p className="mt-4 text-lg">Smart water management using AI, ML, and IoT.</p>
 
-                {/* About Section */}
-                <section id="about" className="mb-12">
-                    <Card>
-                        <CardContent>
-                            <h2 className="text-xl font-bold mb-4">About the Technology</h2>
-                            <p className="text-gray-700 mb-4">
-                                This project uses advanced technologies including:
-                            </p>
-                            <ul className="list-disc pl-5 text-gray-700">
-                                <li><strong>AI/ML:</strong> Machine learning models detect anomalies in water flow and pressure data.</li>
-                                <li><strong>IoT:</strong> Smart sensors collect real-time data from pipelines and taps.</li>
-                                <li><strong>Cloud:</strong> Data is stored and processed on scalable platforms like AWS and Google Cloud.</li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-                </section>
+            {/* Images Section */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <img
+                    src="https://www.facilitiesnet.com/resources/editorial/2024/water-leak-sensor-sstock_2168858249.jpg"
+                    alt="Water Leak Sensor"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg"
+                />
+                <img
+                    src="https://www.shutterstock.com/image-photo/water-leaking-tap-field-260nw-1878223051.jpg"
+                    alt="Leaking Tap in a Field"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg"
+                />
+            </div>
 
-                {/* Contact Section */}
-                <section id="contact" className="mb-12">
-                    <Card>
-                        <CardContent>
-                            <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-                            <form className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" className="mt-1 p-2 w-full border rounded-md" placeholder="Your Name" />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">Email</label>
-                                    <input type="email" className="mt-1 p-2 w-full border rounded-md" placeholder="Your Email" />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700">Message</label>
-                                    <textarea className="mt-1 p-2 w-full border rounded-md" rows="4" placeholder="Your Message"></textarea>
-                                </div>
-                                <Button type="submit" className="bg-blue-600 text-white">Submit</Button>
-                            </form>
-                        </CardContent>
-                    </Card>
-                </section>
-            </main>
-
-            <footer className="bg-gray-800 text-white p-6 text-center">
-                <p>&copy; 2025 Water Management System for Delhi. All rights reserved.</p>
-            </footer>
+            {/* Call to Action Button */}
+            <button className="mt-6 bg-red-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-red-700 transition-all">
+                Get Started
+            </button>
         </div>
     );
-};
+}
+
+function About() {
+    return (
+        <div className="p-10 text-center">
+            <h2 className="text-3xl font-bold">About LeakLoom</h2>
+            <p className="mt-4 text-lg">
+                LeakLoom is an AI-powered smart water management system designed to reduce water
+                wastage and enhance efficiency in urban water networks.
+            </p>
+            <div className="mt-6 bg-white p-6 rounded-lg shadow-md text-left text-gray-700 max-w-2xl mx-auto">
+                <h3 className="text-xl font-semibold text-gray-900">Our Mission</h3>
+                <p className="mt-4 text-lg">
+                    This platform serves as a comprehensive source of information and solutions aimed at raising awareness about water scarcity, especially in regions severely affected by this crisis.
+                    We aim to guide individuals and organizations on how to contribute to water conservation efforts, and provide practical tips for sustainable water usage.
+                </p>
+            </div>
+
+            <div className="mt-8 space-y-8">
+                {/* First Image */}
+                <div>
+                    <img
+                        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FGIS-map-for-the-water-distribution-network-of-the-campus_fig1_312018621&psig=AOvVaw0SBYZkQ8OgBT4PQTqJbakj&ust=1738257393280000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDu1MW3m4sDFQAAAAAdAAAAABAJ"
+                        alt="Water Distribution Network"
+                        className="max-w-full h-auto rounded-lg shadow-lg"
+                    />
+                </div>
+
+                {/* Second Image */}
+                <div>
+                    <img
+                        src="https://www.sgligis.com/wp-content/uploads/2-Water-Supply-Management.jpg"
+                        alt="Water Supply Management"
+                        className="max-w-full h-auto rounded-lg shadow-lg"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
+
+
+
+
+import { FaTachometerAlt, FaTint, FaWater, FaChartLine } from "react-icons/fa";
+
+function Dashboard() {
+    return (
+        <div className="p-10">
+            <h2 className="text-3xl font-bold text-center">Dashboard</h2>
+            <p className="mt-4 text-center text-lg">
+                Monitor water usage, detect leaks, and optimize efficiency.
+            </p>
+
+            {/* Dashboard Cards */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Leak Detection */}
+                <div className="p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition">
+                    <FaTint size={40} className="text-blue-500 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-center">Real-time Leak Detection</h3>
+                    <p className="text-gray-600 text-center">
+                        AI-driven insights detect pipeline leaks instantly.
+                    </p>
+                </div>
+
+                {/* Water Consumption Analytics */}
+                <div className="p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition">
+                    <FaTachometerAlt size={40} className="text-green-500 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-center">Water Consumption Analytics</h3>
+                    <p className="text-gray-600 text-center">
+                        Track and optimize your daily water usage efficiently.
+                    </p>
+                </div>
+
+                {/* AI-Powered Leak Forecasting */}
+                <div className="p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition">
+                    <FaChartLine size={40} className="text-red-500 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-center">AI Leak Forecasting</h3>
+                    <p className="text-gray-600 text-center">
+                        Predict future leaks based on historical data and AI models.
+                    </p>
+                </div>
+
+                {/* Water Quality Monitoring */}
+                <div className="p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition">
+                    <FaWater size={40} className="text-purple-500 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-center">Water Quality Monitoring</h3>
+                    <p className="text-gray-600 text-center">
+                        Analyze water purity levels to ensure safe usage.
+                    </p>
+                </div>
+
+                {/* Smart Water Distribution */}
+                <div className="p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition">
+                    <FaTachometerAlt size={40} className="text-yellow-500 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-center">Smart Water Distribution</h3>
+                    <p className="text-gray-600 text-center">
+                        Optimize distribution across different sectors efficiently.
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
+
 
 export default App;
